@@ -16,9 +16,14 @@ namespace SignalRWithGroup.Hubs
            await Clients.OthersInGroup(clientMessage.Divisi).SendAsync("SendMessage", clientMessage);
         }
 
-        public async Task SendMessage(string divisi,string namaTabel, DataRow dr)
+        public async Task SendMessage(string divisi, string namaTabel, DataRow dr)
         {
             await Clients.OthersInGroup(divisi).SendAsync("SendMessage", namaTabel,dr);
+        }
+
+        public async Task SendMessage(string username, string message, string page, byte[] img)
+        {
+            await Clients.All.SendAsync("SendMessage", username, message, img, page);
         }
 
         public async Task BroadcastMessage(ClientMessage clientMessage)
@@ -37,6 +42,7 @@ namespace SignalRWithGroup.Hubs
             public string Divisi { get; set; }
             public string Method { get; set; }
             public long IdKaryawan { get; set; }
+            public string namaPage { get; set; }
         }
     }
 }
