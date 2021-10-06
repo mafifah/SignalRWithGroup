@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace SignalRWithGroup.Hubs
@@ -12,7 +13,12 @@ namespace SignalRWithGroup.Hubs
 
         public async Task SendMessage(ClientMessage clientMessage)
         {
-            await Clients.OthersInGroup(clientMessage.Divisi).SendAsync("SendMessage", clientMessage);
+           await Clients.OthersInGroup(clientMessage.Divisi).SendAsync("SendMessage", clientMessage);
+        }
+
+        public async Task SendMessage(string divisi,string namaTabel, DataRow dr)
+        {
+            await Clients.OthersInGroup(divisi).SendAsync("SendMessage", namaTabel,dr);
         }
 
         public async Task BroadcastMessage(ClientMessage clientMessage)
